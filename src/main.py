@@ -1,4 +1,4 @@
-from listHelper import allSame, hasTruthy
+from listHelper import allSame
 
 
 class Move:
@@ -64,7 +64,7 @@ class WaterSortPuzzle:
             return False
         if self.tubes[to_] == [0, 0, 0, 0]:  # 全部カラのケース
             return True
-        if size == 4 and hasTruthy(self.tubes[to_]):
+        if size == 4 and any(self.tubes[to_]):
             return False
         if self.tubes[to_][4 - size - 1] != color:
             return False

@@ -10,14 +10,5 @@ def allSame(ls: list) -> bool:
     return True
 
 
-def hasTruthy(ls: list) -> bool:
-    if __isEmptyList(ls):
-        return False
-    for e in ls:
-        if e:
-            return True
-    return False
-
-
 def __isEmptyList(ls: list) -> bool:
     return ls is None or len(ls) == 0
