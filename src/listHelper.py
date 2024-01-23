@@ -4,7 +4,7 @@ def allSame(ls: list) -> bool:
     if len(ls) == 1:
         return True
     fe = ls[0]
-    for e in ls:
+    for e in ls[1:]:
         if fe != e:
             return False
     return True
