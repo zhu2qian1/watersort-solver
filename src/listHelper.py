@@ -1,5 +1,5 @@
-def hasSameContents(ls: list) -> bool:
-    if __isFalsyList(ls):
+def allSame(ls: list) -> bool:
+    if __isEmptyList(ls):
         return False
     if len(ls) == 1:
         return True
@@ -10,8 +10,8 @@ def hasSameContents(ls: list) -> bool:
     return True
 
 
-def hasTruthyContent(ls: list) -> bool:
-    if __isFalsyList(ls):
+def hasTruthy(ls: list) -> bool:
+    if __isEmptyList(ls):
         return False
     for e in ls:
         if e:
@@ -19,8 +19,5 @@ def hasTruthyContent(ls: list) -> bool:
     return False
 
 
-
-def __isFalsyList(ls: list) -> bool:
-    if ls is None:
-        raise Exception("list is None")
-    return len(ls) != 0
+def __isEmptyList(ls: list) -> bool:
+    return ls is None or len(ls) == 0

@@ -1,4 +1,4 @@
-from listHelper import hasSameContents
+from listHelper import allSame, hasTruthy
 
 
 class Move:
@@ -18,7 +18,7 @@ class WaterSortPuzzle:
         return WaterSortPuzzle([list(map(int, e.split(" "))) for e in stdin])
 
     def isSolved(self) -> bool:
-        if not hasSameContents(self.tubes):
+        if not allSame(self.tubes):
             return False
         return True
 
@@ -64,6 +64,8 @@ class WaterSortPuzzle:
             return False
         if self.tubes[to_] == [0, 0, 0, 0]:  # 全部カラのケース
             return True
+        if size == 4 and hasTruthy(self.tubes[to_]):
+            return False
         if self.tubes[to_][4 - size - 1] != color:
             return False
         return True
