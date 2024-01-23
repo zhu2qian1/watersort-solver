@@ -1,4 +1,4 @@
-def hasSameContents(ls: list[any]) -> bool:
+def hasSameContents(ls: list) -> bool:
     if ls is None:
         return False
     if len(ls) == 0:
