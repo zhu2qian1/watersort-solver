@@ -18,7 +18,7 @@ class WaterSortPuzzle:
         return WaterSortPuzzle([list(map(int, e.split(" "))) for e in stdin])
 
     def isSolved(self) -> bool:
-        if not (hasSameContents(self.tubes)):
+        if not hasSameContents(self.tubes):
             return False
         return True
 
