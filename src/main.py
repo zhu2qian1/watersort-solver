@@ -18,8 +18,9 @@ class WaterSortPuzzle:
         return WaterSortPuzzle([list(map(int, e.split(" "))) for e in stdin])
 
     def isSolved(self) -> bool:
-        if not allSame(self.tubes):
-            return False
+        for tube in self.tubes:
+            if not allSame(tube):
+                return False
         return True
 
     def __repr__(self) -> str:
@@ -62,9 +63,9 @@ class WaterSortPuzzle:
         # 移動先のチェック
         if self.tubes[to_][4 - size]:  # 移動先にすでに水がある場合は無理
             return False
-        if self.tubes[to_] == [0, 0, 0, 0]:  # 全部カラのケース
+        if not any(self.tubes[to_]):  # 全部カラ
             return True
-        if size == 4 and any(self.tubes[to_]):
+        if size == 4:  # 全部カラではない かつ 移動元が4段なら確実に移動不可
             return False
         if self.tubes[to_][4 - size - 1] != color:
             return False
