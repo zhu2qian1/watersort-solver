@@ -33,10 +33,12 @@ class WaterSortPuzzle:
     def solve(self) -> bool:
         if self.isSolved():
             return True
-        for f in range(len(self.tubes)):
-            for t in range(len(self.tubes)):
-                if f == t:
-                    continue
+        moves = permutations(range(len(self.tubes)), r=2)
+        for f, t in moves:
+            # TODO なんか処理する
+            if not self.isMovable(f, t):
+                return False
+            # TODO moveしてどうにかする
         return False
 
     def isMovable(self, from_: int, to_: int) -> bool:
