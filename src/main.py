@@ -1,6 +1,8 @@
 from listHelper import allSame
 import json
 import sys
+from functools import reduce
+from operator import and_
 
 
 class Move:
@@ -19,10 +21,7 @@ class WaterSortPuzzle:
         return WaterSortPuzzle([list(map(int, e.split(" "))) for e in puzzle])
 
     def isSolved(self) -> bool:
-        for tube in self.tubes:
-            if not allSame(tube):
-                return False
-        return True
+        return reduce(and_, [allSame(tube) for tube in self.tubes])
 
     def __repr__(self) -> str:
         return f"WaterSortPuzzle: tubes: {self.tubes}"
