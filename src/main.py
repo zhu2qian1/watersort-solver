@@ -40,7 +40,6 @@ class WaterSortPuzzle:
                     continue
         return False
 
-    # TODO 1個ずつ移動のパターンしかチェックしてないので2個とか3個とかのケースを調べる
     def isMovable(self, from_: int, to_: int) -> bool:
         # 移動元のチェック
         if self.tubes[from_] == [0, 0, 0, 0]:  # 全部カラのケース
