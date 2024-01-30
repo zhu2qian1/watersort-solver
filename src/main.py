@@ -1,12 +1,12 @@
 from listHelper import allSame
+import json
 import sys
 
 
 class Move:
-    def __init__(self, fromIdx: int, toIdx: int, clr: int) -> None:
+    def __init__(self, fromIdx: int, toIdx: int) -> None:
         self.fromIdx = fromIdx
         self.toIdx = toIdx
-        self.clr = clr
 
 
 class WaterSortPuzzle:
@@ -15,8 +15,8 @@ class WaterSortPuzzle:
         self.moves: list[Move] = list()
 
     @staticmethod
-    def factory(stdin: list[str]):
-        return WaterSortPuzzle([list(map(int, e.split(" "))) for e in stdin])
+    def factory(puzzle: list[str]):
+        return WaterSortPuzzle([list(map(int, e.split(" "))) for e in puzzle])
 
     def isSolved(self) -> bool:
         for tube in self.tubes:
@@ -27,6 +27,7 @@ class WaterSortPuzzle:
     def __repr__(self) -> str:
         return f"WaterSortPuzzle: tubes: {self.tubes}"
 
+    # TODO Moveって可逆的か調べる
     def makeMove(self, move: Move) -> None:
         pass
 
@@ -73,22 +74,46 @@ class WaterSortPuzzle:
         return True
 
 
-def main() -> int:
-    game = WaterSortPuzzle.factory(readStdin())
+def main(*args) -> int:
+    game = WaterSortPuzzle(
+        read_game_json(args[1] if len(args) > 1 else "./resources/json/example.json")
+    )
     print(game.__repr__())
     print(game.isSolved())
     return 0
 
 
-def readStdin() -> list[str]:
-    ret: list[str] = list()
-    while True:
-        s = input()
-        if not s:
-            break
-        ret.append(s)
-    return ret
+def read_game_json(path: str = None) -> list[list[int]]:
+    game_json = None
+    with open(path, "r", encoding="utf-8") as f:
+        game_json = json.load(f)
+    # check file content
+    if not isinstance(game_json, list):
+        raise TypeError(
+            f"invalid type of json. (expteced list, but got {type(game_json)})"
+        )
+    if not len(game_json) >= 4:
+        raise TypeError(
+            f"json list size is too small. (expected len >= 4, but got {len(game_json)})"
+        )
+    for tube in game_json:
+        if not isinstance(tube, list):
+            raise TypeError(
+                f"invalid type of element. (expected list, but got {type(tube)})"
+            )
+        if len(tube) != 4:
+            raise ValueError(f"invalid tube length. (expected 4, but got {len(tube)})")
+        for e in tube:
+            if not isinstance(e, int):
+                raise TypeError(
+                    f"invalid type of element. (expected int, but got {type(e)})"
+                )
+            if not e >= 0:
+                raise ValueError(
+                    f"non-positive number contained. (expected value >= 0, but got {e})"
+                )
+    return game_json
 
 
 if __name__ == "__main__":
-    main()
+    main(*sys.argv)
