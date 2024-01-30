@@ -3,6 +3,7 @@ import json
 import sys
 from functools import reduce
 from operator import and_
+from itertools import permutations
 
 
 class Move:
@@ -26,8 +27,11 @@ class WaterSortPuzzle:
     def __repr__(self) -> str:
         return f"WaterSortPuzzle: tubes: {self.tubes}"
 
-    # TODO Moveって可逆的か調べる
+    # TODO Moveって可逆的か調べる -> 戻すことができれば1インスタンスで行けそうだけど無理ならスナップショットを都度取る、みたいな実装になる…？
+    # TODO 考える
     def makeMove(self, move: Move) -> None:
+        self.moves.append(move)  # 記録
+        # 実際に動かす処理
         pass
 
     def solve(self) -> bool:
@@ -80,6 +84,7 @@ def main(*args) -> int:
     )
     print(game.__repr__())
     print(game.isSolved())
+    print(game.solve())
     return 0
 
 
